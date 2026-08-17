@@ -4,13 +4,12 @@ import pandas as pd
 from pathlib import Path
 
 # ------------------------------------------------------------------------------
-def preprocess(df: pd.DataFrame) -> pd.DataFrame:
+def preprocess_df(df: pd.DataFrame) -> pd.DataFrame:
     df = df.dropna()
     df = df.drop_duplicates("name_nif")
 
     df["directories"] = df["pseudo_path"]\
         .apply(lambda p: str(Path(p).parent))
-    df["name_nif"] = df["name_nif"].apply(lambda s: f"{s}.nif")
 
     df = df.drop(columns = ["path_texture", "pseudo_path"])
     df = df.sort_values(by = ["directories"])
@@ -25,9 +24,10 @@ def init_dir_tree(unique_dirs: list[str]) -> dict[str, dict]:
         parts = d.split('/')
         current = tree
         for part in parts:
-            if part not in current:
-                current[part] = {}
-            current = current[part]
+            key = part + '/'
+            if key not in current:
+                current[key] = {}
+            current = current[key]
 
     return tree
 
@@ -38,7 +38,7 @@ def populate_dir_tree(tree: dict[str, dict], data: list[list[str]]) -> None:
         if path == '.': return tree
         parts = path.split('/')
         current = tree
-        for part in parts: current = current[part]
+        for part in parts: current = current[part+'/']
         return current
 
     for entry in data:
@@ -64,8 +64,9 @@ def extract_tree(df: pd.DataFrame) -> dict[str, list|dict]:
 
 # ------------------------------------------------------------------------------
 def main():
-    df = preprocess(pd.read_csv(PATH_CSV))
-    data = extract_tree(df)
+    data = extract_tree(
+        preprocess_df(pd.read_csv(PATH_CSV))
+    )
     PATH_JSON.write_text(json.dumps(data))
 
 
@@ -77,4 +78,4 @@ if __name__ == "__main__":
 
 
 ################################################################################
-# python3 utils/csv2json.py data/statics.meta.csv data/statics.meta.json
+# python3 utils/preprocess_meta.py data/statics.meta.csv data/statics.meta.json
