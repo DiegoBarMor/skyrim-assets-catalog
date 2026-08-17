@@ -1,0 +1,1 @@
+# Skyrim IDs Catalog
