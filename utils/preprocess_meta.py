@@ -67,7 +67,13 @@ def main():
     data = extract_tree(
         preprocess_df(pd.read_csv(PATH_CSV))
     )
-    PATH_JSON.write_text(json.dumps(data))
+    out = json.dumps(data)
+    PATH_JSON.write_text(out)
+
+    var_name = "DATA_" + PATH_JSON.stem.replace('.', '_').upper()
+    (PATH_JSON.with_suffix(".js")).write_text(
+        f"const {var_name} = {out};"
+    )
 
 
 ################################################################################
