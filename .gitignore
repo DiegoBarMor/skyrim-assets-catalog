@@ -1,3 +1,8 @@
 desktop.ini
 **/__pycache__/
 .vscode/
+
+tmp*
+data/*.json
+data/*.js
+!data/tables.js
