@@ -1,1 +1,1 @@
-# Skyrim IDs Catalog
+# Skyrim Assets Catalog
