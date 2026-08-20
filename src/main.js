@@ -19,8 +19,28 @@ function split_keys(node) {
 /**
  * @param {string} name_dir
  */
+function on_click_dir(name_dir) {
+    var new_node = CURRENT_NODE[name_dir];
+    if (!new_node) return;
+
+    CURRENT_NODE = new_node;
+    update_node(new_node);
+}
+
+/**
+ * @param {string} name_nif
+ */
+function on_click_nif(name_nif) {
+    alert(`WIP: Not implemented yet. ${name_nif}`);
+}
+
+/**
+ * @param {string} name_dir
+ */
 function get_html_dir(name_dir) {
-    return `<a href="#"><b>${name_dir}</b></a>`
+    return `<a href="#">
+        <b class="neon-accent" onclick="on_click_dir('${name_dir}')">${name_dir}</b>
+    </a>`
 }
 
 /**
@@ -29,18 +49,11 @@ function get_html_dir(name_dir) {
 function get_html_nif(name_nif) {
     url = URLS_THUMBNAILS[name_nif] || URL_MISSING_THUMBNAIL;
     return `
-    <div class="nif-item">
-        <a href="#">${name_nif}</a>
-        <img src="${url}" alt="${name_nif}" onclick="wip_not_implemented('${url}')">
+    <div onclick="on_click_nif('${name_nif}')">
+        <b>${name_nif}</b>
+        <img src="${url}" alt="${name_nif}">
     </div>
     `
-}
-
-/**
- * @param {string} url
- */
-function wip_not_implemented(url) {
-    alert(`WIP: Not implemented yet. ${url}`);
 }
 
 /**
