@@ -57,8 +57,8 @@ def extract_tree(df: pd.DataFrame) -> dict[str, list|dict]:
     tree = init_dir_tree(df["directories"].unique())
     populate_dir_tree(tree, json_flat["data"])
     return {
-        "columns" : ["editor_name", "base_form"], # ASSUME HARDCODED COLUMNS
-        "data": tree
+        # "columns" : ["editor_name", "base_form"], # ASSUME HARDCODED COLUMNS
+        "data/": tree
     }
 
 

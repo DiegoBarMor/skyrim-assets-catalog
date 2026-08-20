@@ -16,15 +16,28 @@ function split_keys(node) {
     return { keys_dir, keys_nif };
 }
 
+function update_dirs_prev() {
+    NODE_TRAVERSAL_PATH.pop();
+
+    CURRENT_NODE = DATA_STATICS_META;
+    NODE_TRAVERSAL_PATH.forEach((x) => {
+        CURRENT_NODE = CURRENT_NODE[x];
+    });
+
+    update_display(CURRENT_NODE);
+}
+
 /**
  * @param {string} name_dir
  */
-function on_click_dir(name_dir) {
-    var new_node = CURRENT_NODE[name_dir];
-    if (!new_node) return;
+function update_dirs_next(name_dir) {
+    var node = CURRENT_NODE[name_dir];
+    if (!node) return;
 
-    CURRENT_NODE = new_node;
-    update_node(new_node);
+    CURRENT_NODE = node;
+    NODE_TRAVERSAL_PATH.push(name_dir);
+
+    update_display(node);
 }
 
 /**
@@ -36,10 +49,14 @@ function on_click_nif(name_nif) {
 
 /**
  * @param {string} name_dir
+ * @param {boolean} go_back
  */
-function get_html_dir(name_dir) {
+function get_html_dir(name_dir, go_back = false) {
+    var callback = go_back ?
+        `update_dirs_prev()`:
+        `update_dirs_next('${name_dir}')`;
     return `<a href="#">
-        <b class="neon-accent" onclick="on_click_dir('${name_dir}')">${name_dir}</b>
+        <b class="neon-accent" onclick="${callback}">${name_dir}</b>
     </a>`
 }
 
@@ -59,11 +76,17 @@ function get_html_nif(name_nif) {
 /**
  * @param {SKNode} node
  */
-function update_node(node) {
+function update_display(node) {
     const { keys_dir, keys_nif } = split_keys(node);
-    document.getElementById("list_dirs").innerHTML = keys_dir.map(get_html_dir).join("<br>");
+    var array_dirs = !NODE_TRAVERSAL_PATH.length? [] : [
+        get_html_dir("../", go_back = true)
+    ]
+    document.getElementById("list_dirs").innerHTML = array_dirs.concat(
+        keys_dir.map((x) => get_html_dir(x, go_back = false))
+    ).join("<br>");
     document.getElementById("list_nifs").innerHTML = keys_nif.map(get_html_nif).join("<br>");
 }
 
-var CURRENT_NODE = DATA_STATICS_META["data"];
-update_node(DATA_STATICS_META["data"]);
+var CURRENT_NODE = DATA_STATICS_META;
+var NODE_TRAVERSAL_PATH = [];
+update_dirs_next("data/");
