@@ -24,7 +24,7 @@ function update_dirs_prev() {
         CURRENT_NODE = CURRENT_NODE[x];
     });
 
-    update_display(CURRENT_NODE);
+    update_display();
 }
 
 /**
@@ -37,7 +37,7 @@ function update_dirs_next(name_dir) {
     CURRENT_NODE = node;
     NODE_TRAVERSAL_PATH.push(name_dir);
 
-    update_display(node);
+    update_display();
 }
 
 /**
@@ -55,9 +55,13 @@ function get_html_dir(name_dir, go_back = false) {
     var callback = go_back ?
         `update_dirs_prev()`:
         `update_dirs_next('${name_dir}')`;
-    return `<a href="#">
-        <b class="neon-accent" onclick="${callback}">${name_dir}</b>
-    </a>`
+    return `
+    <div class="dir_item">
+        <a href="#">
+            <b class="neon-accent" onclick="${callback}">${name_dir}</b>
+        </a>
+    </div>
+    `
 }
 
 /**
@@ -69,29 +73,26 @@ function get_html_nif(name_nif) {
     var editor_name = leaf[0];
     var base_form = leaf[1];
     return `
-    <div class="nif_item" onclick="on_click_nif('${name_nif}')">
+    <div class="nif_item">
         <div class="nif_item_text">
             <b>${editor_name}</b>
             <span>${base_form}</span>
             <span>${name_nif}.nif</span>
         </div>
-        <img src="${url}" alt="${name_nif}">
+        <img src="${url}" alt="${name_nif} onclick="on_click_nif('${name_nif}')"">
     </div>
     `
 }
 
-/**
- * @param {SKNode} node
- */
-function update_display(node) {
-    const { keys_dir, keys_nif } = split_keys(node);
+function update_display() {
+    const { keys_dir, keys_nif } = split_keys(CURRENT_NODE);
     var array_dirs = !NODE_TRAVERSAL_PATH.length? [] : [
         get_html_dir("../", go_back = true)
     ]
     document.getElementById("list_dirs").innerHTML = array_dirs.concat(
         keys_dir.map((x) => get_html_dir(x, go_back = false))
-    ).join("<br>");
-    document.getElementById("list_nifs").innerHTML = keys_nif.map(get_html_nif).join("<br>");
+    ).join("");
+    document.getElementById("list_nifs").innerHTML = keys_nif.map(get_html_nif).join("");
 }
 
 var CURRENT_NODE = DATA_STATICS_META;
