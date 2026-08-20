@@ -1,0 +1,30 @@
+.nif_item {
+    display: flex;
+    width: fit-content;
+    max-width: 100%;
+    align-items: center;
+    gap: 1rem;
+    padding: 0.75rem 1rem;
+}
+.nif_item_text {
+    display: flex;
+    flex-direction: column;
+    gap: 0.2rem;
+    min-width: 0;
+}
+.nif_item img {
+    width: min(512px, 80vw);
+    height: auto;
+    object-fit: contain;
+    flex: 0 0 auto;
+}
+@media (max-width: 640px) {
+    .nif_item {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+    .nif_item img {
+        width: 100%;
+        max-width: 1000px;
+    }
+}

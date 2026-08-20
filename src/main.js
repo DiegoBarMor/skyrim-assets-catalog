@@ -64,10 +64,17 @@ function get_html_dir(name_dir, go_back = false) {
  * @param {string} name_nif
  */
 function get_html_nif(name_nif) {
-    url = URLS_THUMBNAILS[name_nif] || URL_MISSING_THUMBNAIL;
+    var url = URLS_THUMBNAILS[name_nif] || URL_MISSING_THUMBNAIL;
+    var leaf = CURRENT_NODE[name_nif];
+    var editor_name = leaf[0];
+    var base_form = leaf[1];
     return `
-    <div onclick="on_click_nif('${name_nif}')">
-        <b>${name_nif}</b>
+    <div class="nif_item" onclick="on_click_nif('${name_nif}')">
+        <div class="nif_item_text">
+            <b>${editor_name}</b>
+            <span>${base_form}</span>
+            <span>${name_nif}.nif</span>
+        </div>
         <img src="${url}" alt="${name_nif}">
     </div>
     `
