@@ -27,7 +27,6 @@
 .nif_item {
     display: flex;
     max-width: var(--node-item-max-with);
-    /* width: fit-content; */
     max-width: 100%;
     align-items: center;
     gap: 1rem;
@@ -74,9 +73,7 @@
     max-width: calc(
         75vw - var(--floating-preview-padding) * 2
     );
-    /* max-width: min(42vw); */
-    /* max-width: min(42vw, 760px); */
-    pointer-events: none;
+    pointer-events: auto;
 }
 
 .floating-preview img {
@@ -85,6 +82,27 @@
     height: auto;
     border-radius: 0.5rem;
     box-shadow: 0 10px 30px rgba(0, 0, 0, 0.35);
+    pointer-events: none;
+}
+
+.detailed_view_buttons {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+    gap: 0.5rem;
+    margin-top: 0.75rem;
+    width: 100%;
+}
+
+.detailed_view_buttons .button {
+    margin: 0;
+    white-space: nowrap;
+}
+
+.detailed_view_debug {
+    flex-basis: 100%;
+    text-align: center;
 }
 
 @media (max-width: 900px) {

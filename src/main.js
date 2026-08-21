@@ -85,17 +85,25 @@ function update_display() {
     _update("text_path", text_path);
     _update("list_dirs", array_dirs.join(""));
     _update("list_nifs", keys_nif.map(get_html_nif).join(""));
+    _update("detailed_view", DO_VIEW_DETAILED ? _html_detailed_view() : "");
 }
 
 /**
  * @param {boolean} do_detailed
+ * @param {string} orientation
  */
-function enable_view_detailed(do_detailed) {
+function enable_view_detailed(do_detailed = true, orientation = "t") {
     DO_VIEW_DETAILED = do_detailed;
+    ORIENTATION_DETAILED = orientation;
     update_display();
 }
 
-var DO_VIEW_DETAILED = false;
+////// traversal globals
 var CURRENT_NODE = DATA_STATICS_META;
 var NODE_TRAVERSAL_PATH = [];
+
+////// detailed view globals
+var DO_VIEW_DETAILED = false;
+var ORIENTATION_DETAILED = "t"; // t: top, f: front, l: left
+
 update_dirs_next("data/");
