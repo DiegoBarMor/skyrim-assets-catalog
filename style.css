@@ -1,6 +1,32 @@
+:root {
+    --main-content-max-width: 1200px;
+    --node-item-max-with: 400px;
+    --floating-preview-padding: 1.25rem;
+}
+
+#main .contents {
+    max-width: var(--main-content-max-width);
+    margin-left: auto;
+    margin-right: auto;
+}
+
+/* -------------------------------------------------------------------------- */
+.text_path_item {
+    padding: 0.0rem 1rem;
+}
+
+
+/* -------------------------------------------------------------------------- */
+.dir_item {
+    max-width: var(--node-item-max-with);
+    padding: 0.0rem 1rem;
+}
+
+
+/* -------------------------------------------------------------------------- */
 .nif_item {
     display: flex;
-    width: fit-content;
+    max-width: var(--node-item-max-with);
     max-width: 100%;
     align-items: center;
     gap: 1rem;
@@ -29,10 +55,62 @@
     }
 }
 
-.dir_item {
-    padding: 0.0rem 1rem;
+
+/* -------------------------------------------------------------------------- */
+.floating-preview {
+    position: fixed;
+    right: max(
+        var(--floating-preview-padding),
+        calc((100vw - var(--main-content-max-width)) / 2 + var(--floating-preview-padding))
+    );
+    top: 50%;
+    transform: translateY(-50%);
+    z-index: 1000;
+    width: calc(
+        var(--main-content-max-width)
+        - var(--node-item-max-with)
+    );
+    max-width: calc(
+        75vw - var(--floating-preview-padding) * 2
+    );
+    pointer-events: auto;
 }
 
-.text_path_item {
-    padding: 0.0rem 1rem;
+.floating-preview img {
+    display: block;
+    width: 100%;
+    height: auto;
+    border-radius: 0.5rem;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.35);
+    pointer-events: none;
 }
+
+.detailed_view_buttons {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+    gap: 0.5rem;
+    margin-top: 0.75rem;
+    width: 100%;
+}
+
+.detailed_view_buttons .button {
+    margin: 0;
+    white-space: nowrap;
+}
+
+.detailed_view_text {
+    flex-basis: 100%;
+    text-align: center;
+}
+
+@media (max-width: 900px) {
+    .floating-preview {
+        right: 0.75rem;
+        max-width: min(55vw, 520px);
+    }
+}
+
+
+/* -------------------------------------------------------------------------- */

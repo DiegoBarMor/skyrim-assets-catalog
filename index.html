@@ -21,7 +21,9 @@
             onclick="toggle_theme()">
         </abbr>
         <div class="chocomint-nav-buttons">
-          <a class="button" href="https://diegobarmor.github.io/skyrim-assets-catalog.html">Index</a>
+          <a class="button" href="#" onclick="enable_view_detailed(false)">View: List</a>
+          <a class="button" href="#" onclick="enable_view_detailed(true )">View: Detailed</a>
+          <a class="button" href="https://diegobarmor.github.io/skyrim-assets-catalog.html">Reset</a>
         </div>
       </nav>
     </header>
@@ -30,13 +32,13 @@
       <div class="contents"> <h1>Skyrim Assets Catalog</h1>
         <small>Assets catalog for <a href="https://en.wikipedia.org/wiki/The_Elder_Scrolls_V:_Skyrim">TESV: Skyrim</a></small><br>
         <small>By <a href="https://github.com/DiegoBarMor/">Diego Barquero Morera</a></small><br>
-
         <br>
         <div id="text_path"></div>
         <div id="list_dirs"></div>
         <div id="list_nifs"></div>
-
+        <div id="detailed_view"></div>
       </div>
+
     </main>
 
     <div id="bg-animation-container"></div>
@@ -45,7 +47,9 @@
 
   <script src="https://raw.githack.com/DiegoBarMor/chocomint-css/main/chocomint.min.js"></script>
 
-  <script type="text/javascript" src="data/globals.js"></script>
+  <script type="text/javascript" src="src/globals.js"></script>
+  <script type="text/javascript" src="src/view_list.js"></script>
+  <script type="text/javascript" src="src/view_detailed.js"></script>
   <script type="text/javascript" src="src/main.js"></script>
 
 

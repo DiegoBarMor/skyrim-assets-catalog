@@ -2,6 +2,7 @@
  * @typedef {Map<string, [string, string] | SKNode>} SKNode
  */
 
+/* -------------------------------------------------------------------------- */
 /**
  * @param {SKNode} node
  * @returns {{ keys_dir: string[], keys_nif: string[] }}
@@ -13,9 +14,12 @@ function split_keys(node) {
     var keys_nif = keys_all.filter((_, i) => !mask_is_dir.at(i));
     keys_dir.sort();
     keys_nif.sort();
+    CURRENT_NAME_NIF = keys_nif.length ? keys_nif[0] : "";
     return { keys_dir, keys_nif };
 }
 
+
+/* -------------------------------------------------------------------------- */
 function update_dirs_prev() {
     NODE_TRAVERSAL_PATH.pop();
 
@@ -27,6 +31,8 @@ function update_dirs_prev() {
     update_display();
 }
 
+
+/* -------------------------------------------------------------------------- */
 /**
  * @param {string} name_dir
  */
@@ -40,50 +46,35 @@ function update_dirs_next(name_dir) {
     update_display();
 }
 
-/**
- * @param {string} name_nif
- */
-function on_click_nif(name_nif) {
-    alert(`WIP: Not implemented yet. ${name_nif}`);
-}
 
+/* -------------------------------------------------------------------------- */
 /**
  * @param {string} name_dir
  * @param {boolean} go_back
  */
 function get_html_dir(name_dir, go_back = false) {
-    var callback = go_back ?
+    var str_callback = go_back ?
         `update_dirs_prev()`:
         `update_dirs_next('${name_dir}')`;
-    return `
-    <div class="dir_item">
-        <a href="#">
-            <b class="neon-accent" onclick="${callback}">${name_dir}</b>
-        </a>
-    </div>
-    `
+    var func = DO_VIEW_DETAILED ? _html_dir_view_detailed : _html_dir_view_list;
+    return func(name_dir, str_callback);
 }
 
+
+/* -------------------------------------------------------------------------- */
 /**
  * @param {string} name_nif
  */
 function get_html_nif(name_nif) {
-    var url = URLS_THUMBNAILS[name_nif] || URL_MISSING_THUMBNAIL;
     var leaf = CURRENT_NODE[name_nif];
     var editor_name = leaf[0];
     var base_form = leaf[1];
-    return `
-    <div class="nif_item">
-        <div class="nif_item_text">
-            <b>${editor_name}</b>
-            <span>${base_form}</span>
-            <span>${name_nif}.nif</span>
-        </div>
-        <img src="${url}" alt="${name_nif} onclick="on_click_nif('${name_nif}')"">
-    </div>
-    `
+    var func = DO_VIEW_DETAILED ? _html_nif_view_detailed : _html_nif_view_list;
+    return func(name_nif, editor_name, base_form);
 }
 
+
+/* -------------------------------------------------------------------------- */
 function update_display() {
     function _update(key, new_val) {
         document.getElementById(key).innerHTML = new_val;
@@ -106,8 +97,32 @@ function update_display() {
     _update("text_path", text_path);
     _update("list_dirs", array_dirs.join(""));
     _update("list_nifs", keys_nif.map(get_html_nif).join(""));
+    _update("detailed_view", DO_VIEW_DETAILED ? _html_detailed_view() : "");
 }
 
+
+/* -------------------------------------------------------------------------- */
+/**
+ * @param {boolean} do_detailed
+ */
+function enable_view_detailed(do_detailed) {
+    DO_VIEW_DETAILED = do_detailed;
+    CURRENT_ORIENTATION = "t";
+    update_display();
+}
+
+
+/* ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ */
+////// traversal globals
 var CURRENT_NODE = DATA_STATICS_META;
 var NODE_TRAVERSAL_PATH = [];
+
+////// detailed view globals
+var DO_VIEW_DETAILED = false;
+var CURRENT_ORIENTATION = "t"; // t: top, f: front, l: left
+var CURRENT_NAME_NIF = "";
+
 update_dirs_next("data/");
+
+
+/* ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ */
