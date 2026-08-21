@@ -5,4 +5,4 @@ desktop.ini
 tmp*
 data/*.json
 data/*.js
-!data/tables.js
+!data/globals.js

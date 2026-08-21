@@ -85,14 +85,27 @@ function get_html_nif(name_nif) {
 }
 
 function update_display() {
+    function _update(key, new_val) {
+        document.getElementById(key).innerHTML = new_val;
+    }
+
+    var text_path = `
+        <div class="text_path_item">
+            <code>${NODE_TRAVERSAL_PATH.join("")}</code>
+        </div>
+    `;
+
     const { keys_dir, keys_nif } = split_keys(CURRENT_NODE);
     var array_dirs = !NODE_TRAVERSAL_PATH.length? [] : [
         get_html_dir("../", go_back = true)
     ]
-    document.getElementById("list_dirs").innerHTML = array_dirs.concat(
+    array_dirs = array_dirs.concat(
         keys_dir.map((x) => get_html_dir(x, go_back = false))
-    ).join("");
-    document.getElementById("list_nifs").innerHTML = keys_nif.map(get_html_nif).join("");
+    );
+
+    _update("text_path", text_path);
+    _update("list_dirs", array_dirs.join(""));
+    _update("list_nifs", keys_nif.map(get_html_nif).join(""));
 }
 
 var CURRENT_NODE = DATA_STATICS_META;
