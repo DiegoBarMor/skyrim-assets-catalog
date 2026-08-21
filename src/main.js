@@ -19,6 +19,7 @@ function split_keys(node) {
 function update_dirs_prev() {
     NODE_TRAVERSAL_PATH.pop();
 
+    CURRENT_NAME_NIF = "";
     CURRENT_NODE = DATA_STATICS_META;
     NODE_TRAVERSAL_PATH.forEach((x) => {
         CURRENT_NODE = CURRENT_NODE[x];
@@ -93,7 +94,7 @@ function update_display() {
  */
 function enable_view_detailed(do_detailed) {
     DO_VIEW_DETAILED = do_detailed;
-    ORIENTATION_DETAILED = "t";
+    CURRENT_ORIENTATION = "t";
     update_display();
 }
 
@@ -103,7 +104,7 @@ var NODE_TRAVERSAL_PATH = [];
 
 ////// detailed view globals
 var DO_VIEW_DETAILED = false;
-var ORIENTATION_DETAILED = "t"; // t: top, f: front, l: left
-var CURRENT_NIF = "";
+var CURRENT_ORIENTATION = "t"; // t: top, f: front, l: left
+var CURRENT_NAME_NIF = "";
 
 update_dirs_next("data/");

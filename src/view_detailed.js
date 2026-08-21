@@ -22,7 +22,7 @@ function _html_nif_view_detailed(name_nif, editor_name, base_form) {
     <div class="nif_item">
         <div class="nif_item_text">
             <a href="#"
-                onclick="_select_nif('${name_nif}', '${ORIENTATION_DETAILED}'); return false;"
+                onclick="_select_nif('${name_nif}', '${CURRENT_ORIENTATION}'); return false;"
             ><b>${editor_name}</b></a>
             <span>${base_form}</span>
             <span>${name_nif}.nif</span>
@@ -36,19 +36,20 @@ function _html_detailed_view() {
         // "return false" to prevent navigation to top of page
         return `
         <a class="button" href="#"
-            onclick="_select_nif('${CURRENT_NIF}', '${orientation}'); return false;"
+            onclick="_select_nif('${CURRENT_NAME_NIF}', '${orientation}'); return false;"
         >${label}</a>
         `
     }
-    var name_ss = `${CURRENT_NIF}.${ORIENTATION_DETAILED}`;
-
-    var url = URL_MISSING_SCREENSHOT;
-    var leaf = CURRENT_NODE[CURRENT_NIF];
     var str_detailed = "";
+    var url = URL_EMPTY_SCREENSHOT;
+    var name_ss = `${CURRENT_NAME_NIF}.${CURRENT_ORIENTATION}`;
+
+    var leaf = CURRENT_NODE[CURRENT_NAME_NIF];
     if (leaf) {
         var editor_name = leaf[0];
         var base_form = leaf[1];
         str_detailed = `${editor_name} (${base_form})`;
+        url = URLS_OUTPUT_NIFSKOPE[name_ss] || URL_MISSING_SCREENSHOT;
     }
 
     return `
@@ -69,7 +70,7 @@ function _html_detailed_view() {
  * @param {string} orientation
  */
 function _select_nif(name_nif, orientation) {
-    CURRENT_NIF = name_nif;
-    ORIENTATION_DETAILED = orientation;
+    CURRENT_NAME_NIF = name_nif;
+    CURRENT_ORIENTATION = orientation;
     document.getElementById("detailed_view").innerHTML = _html_detailed_view()
 }
