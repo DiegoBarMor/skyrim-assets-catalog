@@ -8,10 +8,10 @@ def preprocess_df(df: pd.DataFrame) -> pd.DataFrame:
     df = df.dropna()
     df = df.drop_duplicates("name_nif")
 
-    df["directories"] = df["pseudo_path"]\
+    df["directories"] = df["path_website"]\
         .apply(lambda p: str(Path(p).parent))
 
-    df = df.drop(columns = ["path_texture", "pseudo_path"])
+    df = df.drop(columns = ["path_website"])
     df = df.sort_values(by = ["directories"])
     return df
 

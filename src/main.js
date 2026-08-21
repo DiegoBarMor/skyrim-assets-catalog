@@ -2,6 +2,7 @@
  * @typedef {Map<string, [string, string] | SKNode>} SKNode
  */
 
+/* -------------------------------------------------------------------------- */
 /**
  * @param {SKNode} node
  * @returns {{ keys_dir: string[], keys_nif: string[] }}
@@ -13,13 +14,15 @@ function split_keys(node) {
     var keys_nif = keys_all.filter((_, i) => !mask_is_dir.at(i));
     keys_dir.sort();
     keys_nif.sort();
+    CURRENT_NAME_NIF = keys_nif.length ? keys_nif[0] : "";
     return { keys_dir, keys_nif };
 }
 
+
+/* -------------------------------------------------------------------------- */
 function update_dirs_prev() {
     NODE_TRAVERSAL_PATH.pop();
 
-    CURRENT_NAME_NIF = "";
     CURRENT_NODE = DATA_STATICS_META;
     NODE_TRAVERSAL_PATH.forEach((x) => {
         CURRENT_NODE = CURRENT_NODE[x];
@@ -28,6 +31,8 @@ function update_dirs_prev() {
     update_display();
 }
 
+
+/* -------------------------------------------------------------------------- */
 /**
  * @param {string} name_dir
  */
@@ -41,6 +46,8 @@ function update_dirs_next(name_dir) {
     update_display();
 }
 
+
+/* -------------------------------------------------------------------------- */
 /**
  * @param {string} name_dir
  * @param {boolean} go_back
@@ -53,6 +60,8 @@ function get_html_dir(name_dir, go_back = false) {
     return func(name_dir, str_callback);
 }
 
+
+/* -------------------------------------------------------------------------- */
 /**
  * @param {string} name_nif
  */
@@ -64,6 +73,8 @@ function get_html_nif(name_nif) {
     return func(name_nif, editor_name, base_form);
 }
 
+
+/* -------------------------------------------------------------------------- */
 function update_display() {
     function _update(key, new_val) {
         document.getElementById(key).innerHTML = new_val;
@@ -89,6 +100,8 @@ function update_display() {
     _update("detailed_view", DO_VIEW_DETAILED ? _html_detailed_view() : "");
 }
 
+
+/* -------------------------------------------------------------------------- */
 /**
  * @param {boolean} do_detailed
  */
@@ -98,6 +111,8 @@ function enable_view_detailed(do_detailed) {
     update_display();
 }
 
+
+/* ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ */
 ////// traversal globals
 var CURRENT_NODE = DATA_STATICS_META;
 var NODE_TRAVERSAL_PATH = [];
@@ -108,3 +123,6 @@ var CURRENT_ORIENTATION = "t"; // t: top, f: front, l: left
 var CURRENT_NAME_NIF = "";
 
 update_dirs_next("data/");
+
+
+/* ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ */
