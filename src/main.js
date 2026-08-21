@@ -41,13 +41,6 @@ function update_dirs_next(name_dir) {
 }
 
 /**
- * @param {string} name_nif
- */
-function on_click_nif(name_nif) {
-    alert(`WIP: Not implemented yet. ${name_nif}`);
-}
-
-/**
  * @param {string} name_dir
  * @param {boolean} go_back
  */
@@ -55,33 +48,17 @@ function get_html_dir(name_dir, go_back = false) {
     var callback = go_back ?
         `update_dirs_prev()`:
         `update_dirs_next('${name_dir}')`;
-    return `
-    <div class="dir_item">
-        <a href="#">
-            <b class="neon-accent" onclick="${callback}">${name_dir}</b>
-        </a>
-    </div>
-    `
+    return _html_dir_view_list(name_dir, callback);
 }
 
 /**
  * @param {string} name_nif
  */
 function get_html_nif(name_nif) {
-    var url = URLS_THUMBNAILS[name_nif] || URL_MISSING_THUMBNAIL;
     var leaf = CURRENT_NODE[name_nif];
     var editor_name = leaf[0];
     var base_form = leaf[1];
-    return `
-    <div class="nif_item">
-        <div class="nif_item_text">
-            <b>${editor_name}</b>
-            <span>${base_form}</span>
-            <span>${name_nif}.nif</span>
-        </div>
-        <img src="${url}" alt="${name_nif} onclick="on_click_nif('${name_nif}')"">
-    </div>
-    `
+    return _html_nif_view_list(name_nif, editor_name, base_form);
 }
 
 function update_display() {
@@ -108,6 +85,14 @@ function update_display() {
     _update("list_nifs", keys_nif.map(get_html_nif).join(""));
 }
 
+/**
+ * @param {boolean} do_detailed
+ */
+function enable_view_detailed(do_detailed) {
+    alert(`WIP: Not implemented yet. ${do_detailed}`);
+}
+
+var DO_VIEW_DETAILED = false;
 var CURRENT_NODE = DATA_STATICS_META;
 var NODE_TRAVERSAL_PATH = [];
 update_dirs_next("data/");

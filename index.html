@@ -21,7 +21,9 @@
             onclick="toggle_theme()">
         </abbr>
         <div class="chocomint-nav-buttons">
-          <a class="button" href="https://diegobarmor.github.io/skyrim-assets-catalog.html">Index</a>
+          <a class="button" href="#" onclick="enable_view_detailed(false)">View: List</a>
+          <a class="button" href="#" onclick="enable_view_detailed(true )">View: Detailed</a>
+          <a class="button" href="https://diegobarmor.github.io/skyrim-assets-catalog.html">Reset</a>
         </div>
       </nav>
     </header>
@@ -45,7 +47,9 @@
 
   <script src="https://raw.githack.com/DiegoBarMor/chocomint-css/main/chocomint.min.js"></script>
 
-  <script type="text/javascript" src="data/globals.js"></script>
+  <script type="text/javascript" src="src/globals.js"></script>
+  <script type="text/javascript" src="src/view_list.js"></script>
+  <script type="text/javascript" src="src/view_detailed.js"></script>
   <script type="text/javascript" src="src/main.js"></script>
 
 
