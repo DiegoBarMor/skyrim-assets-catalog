@@ -21,7 +21,9 @@ function _html_nif_view_detailed(name_nif, editor_name, base_form) {
     return `
     <div class="nif_item">
         <div class="nif_item_text">
-            <b>${editor_name}</b>
+            <a href="#"
+                onclick="_select_nif('${name_nif}', '${ORIENTATION_DETAILED}'); return false;"
+            ><b>${editor_name}</b></a>
             <span>${base_form}</span>
             <span>${name_nif}.nif</span>
         </div>
@@ -34,12 +36,21 @@ function _html_detailed_view() {
         // "return false" to prevent navigation to top of page
         return `
         <a class="button" href="#"
-            onclick="enable_view_detailed(true, '${orientation}'); return false;"
+            onclick="_select_nif('${CURRENT_NIF}', '${orientation}'); return false;"
         >${label}</a>
         `
     }
+    var name_ss = `${CURRENT_NIF}.${ORIENTATION_DETAILED}`;
 
     var url = URL_MISSING_SCREENSHOT;
+    var leaf = CURRENT_NODE[CURRENT_NIF];
+    var str_detailed = "";
+    if (leaf) {
+        var editor_name = leaf[0];
+        var base_form = leaf[1];
+        str_detailed = `${editor_name} (${base_form})`;
+    }
+
     return `
     <aside class="floating-preview" aria-label="Floating preview image">
         <img src="${url}" alt="Screenshot placeholder">
@@ -47,8 +58,18 @@ function _html_detailed_view() {
             ${_button('t', 'Top')}
             ${_button('f', 'Front')}
             ${_button('l', 'Left')}
-            <span class="detailed_view_debug">DEBUG: ${ORIENTATION_DETAILED}</span>
+            <span class="detailed_view_text">${str_detailed} ${name_ss}</span>
         </div>
     </aside>
     `
+}
+
+/**
+ * @param {string} name_nif
+ * @param {string} orientation
+ */
+function _select_nif(name_nif, orientation) {
+    CURRENT_NIF = name_nif;
+    ORIENTATION_DETAILED = orientation;
+    document.getElementById("detailed_view").innerHTML = _html_detailed_view()
 }

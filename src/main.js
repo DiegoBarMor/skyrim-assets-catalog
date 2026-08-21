@@ -90,11 +90,10 @@ function update_display() {
 
 /**
  * @param {boolean} do_detailed
- * @param {string} orientation
  */
-function enable_view_detailed(do_detailed = true, orientation = "t") {
+function enable_view_detailed(do_detailed) {
     DO_VIEW_DETAILED = do_detailed;
-    ORIENTATION_DETAILED = orientation;
+    ORIENTATION_DETAILED = "t";
     update_display();
 }
 
@@ -105,5 +104,6 @@ var NODE_TRAVERSAL_PATH = [];
 ////// detailed view globals
 var DO_VIEW_DETAILED = false;
 var ORIENTATION_DETAILED = "t"; // t: top, f: front, l: left
+var CURRENT_NIF = "";
 
 update_dirs_next("data/");
