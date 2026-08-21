@@ -36,3 +36,42 @@
 .text_path_item {
     padding: 0.0rem 1rem;
 }
+
+:root {
+    --main-content-max-width: 1200px;
+    --floating-preview-padding: 1.25rem;
+}
+
+#main .contents {
+    max-width: var(--main-content-max-width);
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.floating-preview {
+    position: fixed;
+    right: max(
+        var(--floating-preview-padding),
+        calc((100vw - var(--main-content-max-width)) / 2 + var(--floating-preview-padding))
+    );
+    top: 50%;
+    transform: translateY(-50%);
+    z-index: 1000;
+    max-width: min(42vw, 760px);
+    pointer-events: none;
+}
+
+.floating-preview img {
+    display: block;
+    width: 100%;
+    height: auto;
+    border-radius: 0.5rem;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.35);
+}
+
+@media (max-width: 900px) {
+    .floating-preview {
+        right: 0.75rem;
+        max-width: min(55vw, 520px);
+    }
+}

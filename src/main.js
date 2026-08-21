@@ -45,10 +45,11 @@ function update_dirs_next(name_dir) {
  * @param {boolean} go_back
  */
 function get_html_dir(name_dir, go_back = false) {
-    var callback = go_back ?
+    var str_callback = go_back ?
         `update_dirs_prev()`:
         `update_dirs_next('${name_dir}')`;
-    return _html_dir_view_list(name_dir, callback);
+    var func = DO_VIEW_DETAILED ? _html_dir_view_detailed : _html_dir_view_list;
+    return func(name_dir, str_callback);
 }
 
 /**
@@ -58,7 +59,8 @@ function get_html_nif(name_nif) {
     var leaf = CURRENT_NODE[name_nif];
     var editor_name = leaf[0];
     var base_form = leaf[1];
-    return _html_nif_view_list(name_nif, editor_name, base_form);
+    var func = DO_VIEW_DETAILED ? _html_nif_view_detailed : _html_nif_view_list;
+    return func(name_nif, editor_name, base_form);
 }
 
 function update_display() {
@@ -89,7 +91,8 @@ function update_display() {
  * @param {boolean} do_detailed
  */
 function enable_view_detailed(do_detailed) {
-    alert(`WIP: Not implemented yet. ${do_detailed}`);
+    DO_VIEW_DETAILED = do_detailed;
+    update_display();
 }
 
 var DO_VIEW_DETAILED = false;
