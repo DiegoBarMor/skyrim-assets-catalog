@@ -3,6 +3,8 @@ import json
 import pandas as pd
 from pathlib import Path
 
+from count_leaves_recursive import count_leaves, KEY_COUNT
+
 # ------------------------------------------------------------------------------
 def preprocess_df(df: pd.DataFrame) -> pd.DataFrame:
     df = df.dropna()
@@ -67,12 +69,15 @@ def main():
     data = extract_tree(
         preprocess_df(pd.read_csv(PATH_CSV))
     )
+    count_leaves(data)
+
     out = json.dumps(data)
     PATH_JSON.write_text(out)
 
     var_name = "DATA_" + PATH_JSON.stem.replace('.', '_').upper()
     (PATH_JSON.with_suffix(".js")).write_text(
-        f"const {var_name} = {out};"
+        f"const {var_name} = {out};\n" +\
+        f"const KEY_COUNT_LEAVES = \"{KEY_COUNT}\";\n"
     )
 
 

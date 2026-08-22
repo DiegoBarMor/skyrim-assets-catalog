@@ -4,10 +4,15 @@
  * @param {string} str_callback
  */
 function _html_dir_view_detailed(name_dir, str_callback) {
+    var count_leaves = "";
+    if (name_dir != "../") {
+        var n_leaves = CURRENT_NODE[name_dir][KEY_COUNT_LEAVES] || 0;
+        count_leaves = ` (${n_leaves} NIFs)`;
+    }
     return `
     <div class="dir_item">
-        <a href="#">
-            <b class="neon-accent" onclick="${str_callback}">${name_dir}</b>
+        <a href="#" onclick="${str_callback}">
+            <b class="neon-accent">${name_dir}</b>${count_leaves}
         </a>
     </div>
     `

@@ -10,8 +10,8 @@
 function split_keys(node) {
     const keys_all = Object.keys(node);
     const mask_is_dir = keys_all.map((x) => x.at(-1) == '/');
-    var keys_dir = keys_all.filter((_, i) =>  mask_is_dir.at(i));
-    var keys_nif = keys_all.filter((_, i) => !mask_is_dir.at(i));
+    var keys_dir = keys_all.filter((x, i) =>  mask_is_dir.at(i) && x != KEY_COUNT_LEAVES);
+    var keys_nif = keys_all.filter((x, i) => !mask_is_dir.at(i) && x != KEY_COUNT_LEAVES);
     keys_dir.sort();
     keys_nif.sort();
     CURRENT_NAME_NIF = keys_nif.length ? keys_nif[0] : "";
