@@ -22,8 +22,6 @@
         </abbr>
         <div class="chocomint-nav-buttons">
           <a class="button" href="https://diegobarmor.github.io/skyrim-assets-catalog.html">Catalog</a>
-          <a class="button" href="#" onclick="enable_view_detailed(false)">View: List</a>
-          <a class="button" href="#" onclick="enable_view_detailed(true )">View: Detailed</a>
           <a class="button" href="https://github.com/DiegoBarMor/skyrim-assets-catalog/blob/main/data/statics.meta.csv">Full Table</a>
           <a class="button" href="https://diegobarmor.github.io/skyrim-assets-catalog/about.html">About</a>
         </div>
@@ -32,13 +30,23 @@
 
     <main id="main">
       <div class="contents"> <h1>Skyrim Assets Catalog</h1>
-        <small>Assets catalog for <a href="https://en.wikipedia.org/wiki/The_Elder_Scrolls_V:_Skyrim">TESV: Skyrim</a></small><br>
-        <small><a href="https://diegobarmor.github.io/skyrim-assets-catalog/about.html">What is this?</a></small><br>
-        <br>
-        <div id="text_path"></div>
-        <div id="list_dirs"></div>
-        <div id="list_nifs"></div>
-        <div id="detailed_view"></div>
+        <small>Assets catalog for <a href="https://en.wikipedia.org/wiki/The_Elder_Scrolls_V:_Skyrim">TESV: Skyrim</a></small>
+
+        <h2>Motivation</h2>
+        <p>
+          When playing Skyrim, sometimes I like to decorate the game world by placing more objects in it. I already use a <a href="https://www.nexusmods.com/skyrimspecialedition/mods/8450">mod</a> for crafting and placing pieces of furniture, but I still have to find a practical mod to place "static" objects. I ended up having to get the base form ID for these objects and placing them manually via the console command <code>player.placeatme</code>, but getting these IDs was not easy. I searchd if there was some kind of catalog online mapping these IDs with the static objects, but I didn't manage to find one. I decided to build a <a href="https://github.com/DiegoBarMor/skyrim-miner">mostly automated pipeline</a> to map the IDs to image renderings of the statics objects and set up this public website for such a catalog.
+        </p>
+
+        <h2>Why screenshots?</h2>
+        <p>
+          I think screenhots serve the purpose good enough for the catalog (i.e. be a simple informative website). Uploading the complete NIF files and their respective textures might be a bit too much and could call bad attention from Bethesda, I guess. If you own the game, <a href="https://github.com/DiegoBarMor/skyrim-miner">extracting the files and using NifSkope</a> or using the Creation Kit to view them individually is always an option.
+        </p>
+
+        <h2>Future plans</h2>
+        <p>
+          Might add some other object types to the catalog.
+        </p>
+
       </div>
 
     </main>
@@ -48,9 +56,5 @@
   </body>
 
   <script src="https://raw.githack.com/DiegoBarMor/chocomint-css/main/chocomint.min.js"></script>
-  <script type="text/javascript" src="src/data.js"></script>
-  <script type="text/javascript" src="src/view_list.js"></script>
-  <script type="text/javascript" src="src/view_detailed.js"></script>
-  <script type="text/javascript" src="src/main.js"></script>
 
 </html>
